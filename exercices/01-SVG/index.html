@@ -50,12 +50,72 @@
     <h1>Animer des formes</h1>
 
     <h2>On click</h2>
+    <svg width="1000" height="400">
+      <rect x="0" y="0" width="800" height="300" fill="red" onclick="toggleColor(this)">
+        <animate id="animBlue" attributeName="fill" to="blue" dur="0.3s" fill="freeze"/>
+        <animate id="animRed" attributeName="fill" to="red" dur="0.3s" fill="freeze"/>
+      </rect>
+    
+      <script>
+        function toggleColor(rect) {
+          if (rect.getAttribute("fill") === "red") {
+            document.getElementById("animBlue").beginElement();
+            rect.setAttribute("fill", "blue"); 
+          } else {
+            document.getElementById("animRed").beginElement();
+            rect.setAttribute("fill", "red"); 
+          }
+        }
+      </script>
+    </svg>
 
     <h2>On hover</h2>
+    <svg width="500" height="300">
+      <circle
+        cx="100"
+        cy="100"
+        r="60"
+        stroke="black"
+        stroke-width="30"
+        fill="none"
+      />
+        <animateTransform 
+          attributeName="transform" 
+          type="scale" 
+          from="1" to="1.2" 
+          begin="mouseover" 
+          end="mouseout" 
+          dur="0.3s"
+          additive="sum"
+        />
+      </circle>
+    </svg>
+    
+    
 
     <h2>
       Prenez la première lettre de votre prénom que vous avez créée ci-dessus.
       Faite bouger une forme de votre choix le long de la lettre
     </h2>
+    <svg width="500" height="250">
+      <path
+        d="M 50 0 L 0 0 L 0 50 L 0 100 L 50 100"
+        stroke="black"
+        fill="none"
+        stroke-width="5"
+      />
+      <circle        
+      cx="0"
+      cy="0"
+      r="5"
+      fill="red">
+      <animateMotion
+      path="M 50 0 L 0 0 L 0 50 L 0 100 L 50 100"
+      begin="0s"
+      dur="10s"
+      repeatCount="indefinite" />
+
+      </circle>
+    </svg>
   </body>
 </html>
