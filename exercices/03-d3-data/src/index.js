@@ -1,4 +1,6 @@
 import { json } from "d3-fetch";
+import { select } from "d3-selection";
+import {max, min, sum, extent, mean} from "d3-array"
 Promise.all([
   json("https://jsonplaceholder.typicode.com/posts"),
   json("https://jsonplaceholder.typicode.com/users"),
@@ -38,11 +40,45 @@ Promise.all([
     if (countWords(post.body) > longeurText) {
       longeurText = countWords(post.body);
       postEnregistre = post.body;
-      userLonger = user.find((user) => user.id === post.userId);
+      userLonger = user.find((user) => user.id === post.userId).name;
     }
   });
   console.log(userLonger, longeurText, postEnregistre);
+
+//Afficher les utilisateur le nombre de posts
+const WIDTH = 1000;
+const HEIGHT = 800;
+
+
+const svg = select("body")
+  .append("svg")
+  .attr("width", WIDTH)
+  .attr("height", HEIGHT);
+
+const rectangle = svg.selectAll("rect")
+  .data(titreByUser)
+  .enter()
+  .append("rect")
+  .attr("x", (d, i) => i*60)
+  .attr("y", d => HEIGHT -d.nombrePost*10)
+  .attr("width", 50) // Largeur fixe des rectangles
+  .attr("height", d => d.nombrePost * 10)
+  .attr("fill", "green");
+
+
+
+  svg.selectAll("text")
+  .data(titreByUser)
+  .enter().append("text")
+  .attr("x", (d, i) => (i + 1) * 60) // Position x basée sur l'index
+  .attr("y", HEIGHT -5) // Position y fixe
+  .text(d => d.nom) // Texte basé sur le nom de la ville
+  .attr("transform",(d, i) =>`rotate(-45, ${(i + 1) * 60}, ${HEIGHT-5})`)
+  .attr("text-anchor", "middle"); // Ancrage du texte au milieu 
 });
+
+
+
 
 function countWords(str) {
   return str.trim().split(/\s+/).length;
