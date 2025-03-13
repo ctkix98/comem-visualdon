@@ -53,7 +53,7 @@ const HEIGHT = 800;
 const svg = select("body")
   .append("svg")
   .attr("width", WIDTH)
-  .attr("height", HEIGHT);
+  .attr("height", HEIGHT + 200);
 
 const rectangle = svg.selectAll("rect")
   .data(titreByUser)
@@ -70,10 +70,10 @@ const rectangle = svg.selectAll("rect")
   svg.selectAll("text")
   .data(titreByUser)
   .enter().append("text")
-  .attr("x", (d, i) => (i + 1) * 60) // Position x basée sur l'index
-  .attr("y", HEIGHT -5) // Position y fixe
+  .attr("x", (d, i) => (i) * 60 - 50) // Position x basée sur l'index
+  .attr("y", 800) // Position y fixe
   .text(d => d.nom) // Texte basé sur le nom de la ville
-  .attr("transform",(d, i) =>`rotate(-45, ${(i + 1) * 60}, ${HEIGHT-5})`)
+  .attr("transform",(d, i) =>`rotate(-90, ${(i) * 60 +25}, ${HEIGHT-5})`)
   .attr("text-anchor", "middle"); // Ancrage du texte au milieu 
 });
 
